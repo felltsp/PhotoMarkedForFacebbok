@@ -17,6 +17,7 @@ public class ConfigurationActivity extends Activity {
 		setContentView(R.layout.activity_configuration);
 		List<String> listConfiguration = getListConfiguration();
 		ListView listViewConfiguration = (ListView) findViewById(R.id.listViewConfigurations);
+		
 		listViewConfiguration.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, listConfiguration));
 	}
 
