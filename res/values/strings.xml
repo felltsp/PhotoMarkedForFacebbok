@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Photo Marked for Facebbok</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world1!</string>
+    <string name="app_full_name">Photo Marked for Facebbok</string>
+    <string name="app_name">Photo Marked</string>
+    <string name="hello_world">Hello world!</string>
     <string name="app_id">221907834654550</string>
-    <string name="title_activity_configuracao">ConfiguracaoActivity</string>
-
+    
 </resources>

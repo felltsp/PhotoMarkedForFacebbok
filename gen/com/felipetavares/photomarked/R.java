@@ -219,7 +219,6 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020020;
     }
     public static final class id {
-        public static final int action_settings=0x7f04001a;
         public static final int com_facebook_login_activity_progress_bar=0x7f040007;
         public static final int com_facebook_picker_activity_circle=0x7f040006;
         public static final int com_facebook_picker_checkbox=0x7f040009;
@@ -248,7 +247,7 @@ containing a value of this type.
         public static final int tv_configuracao=0x7f040003;
     }
     public static final class layout {
-        public static final int activity_configuracao=0x7f030000;
+        public static final int activity_configuration=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int com_facebook_friendpickerfragment=0x7f030002;
         public static final int com_facebook_login_activity_layout=0x7f030003;
@@ -265,14 +264,10 @@ containing a value of this type.
         public static final int com_facebook_search_bar_layout=0x7f03000e;
         public static final int com_facebook_usersettingsfragment=0x7f03000f;
     }
-    public static final class menu {
-        public static final int configuracao=0x7f090000;
-        public static final int main=0x7f090001;
-    }
     public static final class string {
-        public static final int action_settings=0x7f07001a;
+        public static final int app_full_name=0x7f070019;
         public static final int app_id=0x7f07001c;
-        public static final int app_name=0x7f070019;
+        public static final int app_name=0x7f07001a;
         public static final int com_facebook_choose_friends=0x7f07000f;
         public static final int com_facebook_dialogloginactivity_ok_button=0x7f070000;
         public static final int com_facebook_internet_permission_error_message=0x7f070013;
@@ -299,7 +294,6 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_logged_in=0x7f070009;
         public static final int com_facebook_usersettingsfragment_not_logged_in=0x7f07000a;
         public static final int hello_world=0x7f07001b;
-        public static final int title_activity_configuracao=0x7f07001d;
     }
     public static final class style {
         /** 
