@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_full_name">Photo Marked for Facebbok</string>
+    <string name="app_name">Photo Marked</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="app_id">221907834654550</string>
+    
+    
+    <!-- screen configuration -->
+    <string name="download_photo_mobile_network">Baixar fotos usando a rede móvel</string>
+    <string name="download_photo_wifi_network">Baixar fotos usando a rede wifi</string>
+    <string name="save">Salvar</string>
+    
+</resources>
