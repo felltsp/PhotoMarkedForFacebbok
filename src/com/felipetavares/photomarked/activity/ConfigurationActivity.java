@@ -1,7 +1,12 @@
-package com.felipetavares.photomarked;
+package com.felipetavares.photomarked.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.felipetavares.photomarked.R;
+import com.felipetavares.photomarked.R.id;
+import com.felipetavares.photomarked.R.layout;
+import com.felipetavares.photomarked.R.string;
 
 import android.app.Activity;
 import android.content.res.Resources;
@@ -17,7 +22,6 @@ public class ConfigurationActivity extends Activity {
 		setContentView(R.layout.activity_configuration);
 		List<String> listConfiguration = getListConfiguration();
 		ListView listViewConfiguration = (ListView) findViewById(R.id.listViewConfigurations);
-		
 		listViewConfiguration.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, listConfiguration));
 	}
 
