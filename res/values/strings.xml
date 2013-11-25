@@ -6,4 +6,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="app_id">221907834654550</string>
     
+    <!-- screen configuration -->
+    <string name="download_photo_mobile_network">Download photos using the mobile network</string>
+    <string name="download_photo_wifi_network">Download photos using the wifi network</string>
+    <string name="save">save</string>
+    
 </resources>
