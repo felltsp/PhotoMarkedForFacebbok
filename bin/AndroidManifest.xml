@@ -42,7 +42,7 @@
             android:exported="false" >
         </service>
         <service
-            android:name="com.felipetavares.photomarked.CheckPhotoService"
+            android:name="com.felipetavares.photomarked.service.CheckPhotoService"
             android:enabled="true"
             android:exported="true"
             android:process=":checkPhotoService" >
