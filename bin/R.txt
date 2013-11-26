@@ -118,6 +118,7 @@ int layout com_facebook_usersettingsfragment 0x7f03000f
 int string app_full_name 0x7f070019
 int string app_id 0x7f07001c
 int string app_name 0x7f07001a
+int string cancel 0x7f070020
 int string com_facebook_choose_friends 0x7f07000f
 int string com_facebook_dialogloginactivity_ok_button 0x7f070000
 int string com_facebook_internet_permission_error_message 0x7f070013
@@ -146,6 +147,8 @@ int string com_facebook_usersettingsfragment_not_logged_in 0x7f07000a
 int string download_photo_mobile_network 0x7f07001d
 int string download_photo_wifi_network 0x7f07001e
 int string hello_world 0x7f07001b
+int string interval_of_verification 0x7f070022
+int string notification_of_downlod 0x7f070021
 int string save 0x7f07001f
 int style AppBaseTheme 0x7f080002
 int style AppTheme 0x7f080003

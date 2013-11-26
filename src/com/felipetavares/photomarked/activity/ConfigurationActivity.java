@@ -3,16 +3,13 @@ package com.felipetavares.photomarked.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.felipetavares.photomarked.R;
-import com.felipetavares.photomarked.R.id;
-import com.felipetavares.photomarked.R.layout;
-import com.felipetavares.photomarked.R.string;
-
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.felipetavares.photomarked.R;
 
 public class ConfigurationActivity extends Activity {
 

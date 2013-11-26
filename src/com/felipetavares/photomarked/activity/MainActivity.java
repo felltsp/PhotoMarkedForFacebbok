@@ -9,8 +9,6 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.widget.UserSettingsFragment;
 import com.felipetavares.photomarked.R;
-import com.felipetavares.photomarked.R.id;
-import com.felipetavares.photomarked.R.layout;
 
 //TODO: TROCAR TODA A PARTE DE LOGIN
 public class MainActivity extends FragmentActivity {

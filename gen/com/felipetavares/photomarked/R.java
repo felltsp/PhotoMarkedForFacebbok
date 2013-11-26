@@ -269,6 +269,7 @@ containing a value of this type.
         public static final int app_full_name=0x7f070019;
         public static final int app_id=0x7f07001c;
         public static final int app_name=0x7f07001a;
+        public static final int cancel=0x7f070020;
         public static final int com_facebook_choose_friends=0x7f07000f;
         public static final int com_facebook_dialogloginactivity_ok_button=0x7f070000;
         public static final int com_facebook_internet_permission_error_message=0x7f070013;
@@ -300,6 +301,8 @@ containing a value of this type.
         public static final int download_photo_mobile_network=0x7f07001d;
         public static final int download_photo_wifi_network=0x7f07001e;
         public static final int hello_world=0x7f07001b;
+        public static final int interval_of_verification=0x7f070022;
+        public static final int notification_of_downlod=0x7f070021;
         public static final int save=0x7f07001f;
     }
     public static final class style {
