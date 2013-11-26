@@ -10,15 +10,32 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.facebook.HttpMethod;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
 import com.felipetavares.photomarked.R;
 import com.felipetavares.photomarked.service.CheckPhotoService;
 
 public class ConfigurationActivity extends Activity {
+	
+	private static String TAG = "PHOTOMARKED";
+	private static Request.Callback requestCallback = new Request.Callback() {
+		
+		@Override
+		public void onCompleted(Response response) {
+			Log.d(TAG, "Result: " + response.toString());
+			
+			
+			
+		}
+	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +46,16 @@ public class ConfigurationActivity extends Activity {
 		listViewConfiguration.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, listConfiguration));
 		addEventsInButtonSave();
 		addEventsInButtonStop();
+
+		String fqlQuery = "select src_small, src_big, src from photo where pid in (SELECT pid from photo_tag where subject = me())";
+		Bundle params = new Bundle();
+		params.putString("q", fqlQuery);
+		Session session = Session.getActiveSession();
+		for(String permission : session.getPermissions()){
+			Log.d(TAG, permission);			
+		}
+		Request request = new Request(session, "/fql", params, HttpMethod.GET, requestCallback); 
+		Request.executeBatchAsync(request);
 		
 	}
 
@@ -46,15 +73,6 @@ public class ConfigurationActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-
-				// no off task in android
-				/*Calendar cal = Calendar.getInstance();
-				cal.add(Calendar.SECOND, 10);
-				Intent intent = new Intent(ConfigurationActivity.this, CheckPhotoService.class);
-				PendingIntent pIntent = PendingIntent.getService(ConfigurationActivity.this, 0, intent, 0);
-				AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-				alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 1000 * 60 * time_in_minutes, pIntent);*/
-				
 				Intent checkPhotoServiceIntent = new Intent(ConfigurationActivity.this, CheckPhotoService.class);
 				startService(checkPhotoServiceIntent);
 			}

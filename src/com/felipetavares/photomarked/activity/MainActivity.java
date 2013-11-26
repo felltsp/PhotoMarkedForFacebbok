@@ -10,10 +10,8 @@ import com.facebook.SessionState;
 import com.facebook.widget.UserSettingsFragment;
 import com.felipetavares.photomarked.R;
 
-//TODO: TROCAR TODA A PARTE DE LOGIN
 public class MainActivity extends FragmentActivity {
 	 private UserSettingsFragment userSettingsFragment;
-	 private static String TAG = "PHOTOMARKED";
 	 
 	 Session.StatusCallback statusCallback = new Session.StatusCallback() {
 		
@@ -33,6 +31,7 @@ public class MainActivity extends FragmentActivity {
 		
 		FragmentManager fragmentManager = getSupportFragmentManager();
         userSettingsFragment = (UserSettingsFragment) fragmentManager.findFragmentById(R.id.login_fragment);
+        userSettingsFragment.setReadPermissions("user_photos","friends_photos");
         userSettingsFragment.setSessionStatusCallback(statusCallback);
 	}
 	
