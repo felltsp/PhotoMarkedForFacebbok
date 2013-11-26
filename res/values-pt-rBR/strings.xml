@@ -6,10 +6,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="app_id">221907834654550</string>
     
-    
     <!-- screen configuration -->
     <string name="download_photo_mobile_network">Baixar fotos usando a rede móvel</string>
     <string name="download_photo_wifi_network">Baixar fotos usando a rede wifi</string>
     <string name="save">Salvar</string>
+    <string name="cancel">Cancel</string>
+    <string name="notification_of_downlod">Notificar-me de novos downloads</string>
+    <string name="interval_of_verification">Intervalo de verificação para novas fotos marcadas</string>
     
 </resources>

@@ -1,4 +1,4 @@
-package com.felipetavares.photomarked;
+package com.felipetavares.photomarked.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.widget.UserSettingsFragment;
+import com.felipetavares.photomarked.R;
 
 //TODO: TROCAR TODA A PARTE DE LOGIN
 public class MainActivity extends FragmentActivity {
