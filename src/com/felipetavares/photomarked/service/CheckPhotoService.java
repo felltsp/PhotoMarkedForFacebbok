@@ -6,7 +6,7 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 /**
- * Class com o objtivo de verificar se exitem novas fotos marcadas disponiveis para se fazer o download.
+ * Class with the objective of checking for new tagged pictures available to download.
  * @author felipe.tavares
  *
  */

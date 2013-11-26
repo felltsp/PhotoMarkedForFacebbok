@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -17,8 +20,6 @@ import com.felipetavares.photomarked.service.CheckPhotoService;
 
 public class ConfigurationActivity extends Activity {
 	
-	private int time_in_minutes = 1;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,7 +27,9 @@ public class ConfigurationActivity extends Activity {
 		List<String> listConfiguration = getListConfiguration();
 		ListView listViewConfiguration = (ListView) findViewById(R.id.listViewConfigurations);
 		listViewConfiguration.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, listConfiguration));
-		addEvenstInButtonSave();
+		addEventsInButtonSave();
+		addEventsInButtonStop();
+		
 	}
 
 	private List<String> getListConfiguration(){
@@ -37,23 +40,48 @@ public class ConfigurationActivity extends Activity {
 		return list;
 	}
 
-	private void addEvenstInButtonSave(){
+	private void addEventsInButtonSave(){
 		Button btnSave = (Button) findViewById(R.id.idBtnSave);
-
 		btnSave.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+
+				// no off task in android
 				/*Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.SECOND, 10);
 				Intent intent = new Intent(ConfigurationActivity.this, CheckPhotoService.class);
 				PendingIntent pIntent = PendingIntent.getService(ConfigurationActivity.this, 0, intent, 0);
 				AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 				alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 1000 * 60 * time_in_minutes, pIntent);*/
-				 Intent i = new Intent(ConfigurationActivity.this, CheckPhotoService.class);
-				 startService(i);
-				 finishActivity(RESULT_OK);
+				
+				Intent checkPhotoServiceIntent = new Intent(ConfigurationActivity.this, CheckPhotoService.class);
+				startService(checkPhotoServiceIntent);
 			}
 		});
+	}
+	
+	private void addEventsInButtonStop(){
+		Button btnStop = (Button) findViewById(R.id.idBtnStop);
+		btnStop.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if(isCheckPhotoServiceRunning()){
+					Intent checkPhotoServiceIntent = new Intent(ConfigurationActivity.this, CheckPhotoService.class);
+					stopService(checkPhotoServiceIntent);	
+				}
+			}
+		});
+	}
+	
+	private boolean isCheckPhotoServiceRunning() {
+	    ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+	        if (CheckPhotoService.class.getName().equals(service.service.getClassName())) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 }

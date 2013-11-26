@@ -8,17 +8,30 @@
         android:id="@+id/listViewConfigurations"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/idBtnSave"
+        android:layout_above="@+id/linearLayoutButtons"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" >
     </ListView>
 
-    <Button
-        android:id="@+id/idBtnSave"
+    <LinearLayout
+        android:id="@+id/linearLayoutButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/save" />
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true" >
+
+        <Button
+            android:id="@+id/idBtnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save" />
+
+        <Button
+            android:id="@+id/idBtnStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stop" />
+    </LinearLayout>
 
 </RelativeLayout>

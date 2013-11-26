@@ -11,6 +11,8 @@
     <string name="download_photo_wifi_network">Download photos using the wifi network</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
     <string name="notification_of_downlod">Notify me of newer download</string>
     <string name="interval_of_verification">Interval of verification for new photos marked</string>
     
