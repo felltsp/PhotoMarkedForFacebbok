@@ -12,8 +12,11 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -50,8 +53,8 @@ public class ConfigurationActivity extends Activity {
 				List<PhotoVO> list = new ArrayList<PhotoVO>();
 				list.add(photo);
 				
-				intent.putExtra("LINK_PHOTOS_AVAILABLE_FOR_DOWNLOAD", (Serializable) list);
-				startService(intent);
+//				intent.putExtra("LINK_PHOTOS_AVAILABLE_FOR_DOWNLOAD", (Serializable) list);
+//				startService(intent);
 				
 			} catch (JSONException e) {
 				Log.e(TAG, "erro ao fazer o parse do resultado", e);
@@ -127,4 +130,19 @@ public class ConfigurationActivity extends Activity {
 	    }
 	    return false;
 	}
+	
+	private void savePreferences(String key, boolean value) {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		Editor editor = sharedPreferences.edit();
+		editor.putBoolean(key, value);
+		editor.commit();
+	}
+
+	private void savePreferences(String key, String value) {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		Editor editor = sharedPreferences.edit();
+		editor.putString(key, value);
+		editor.commit();
+	}
+
 }

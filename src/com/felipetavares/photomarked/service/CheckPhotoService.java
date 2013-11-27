@@ -1,8 +1,16 @@
 package com.felipetavares.photomarked.service;
 
+
+import com.felipetavares.photomarked.R;
+
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 /**
@@ -11,7 +19,7 @@ import android.widget.Toast;
  *
  */
 public class CheckPhotoService extends Service {
-	
+
 	public CheckPhotoService() {
 	}
 
@@ -19,22 +27,55 @@ public class CheckPhotoService extends Service {
 	public IBinder onBind(Intent intent) {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
-	
-	 @Override
-     public void onCreate() {
-            Toast.makeText(getApplicationContext(), "Service Created", Toast.LENGTH_LONG).show();
-            super.onCreate();
-     }
 
-     @Override
-     public void onDestroy() {
-            Toast.makeText(getApplicationContext(), "Service Destroy", Toast.LENGTH_LONG).show();
-            super.onDestroy();
-     }
+	@Override
+	public void onCreate() {
+		super.onCreate();
+	}
 
-     @Override
-     public int onStartCommand(Intent intent, int flags, int startId) {
-            Toast.makeText(getApplicationContext(), "Service Running ", Toast.LENGTH_LONG).show();
-            return super.onStartCommand(intent, flags, startId);
-     }
+	@Override
+	public void onDestroy() {
+		Toast.makeText(getApplicationContext(), "Service Destroy", Toast.LENGTH_LONG).show();
+		super.onDestroy();
+	}
+
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		Toast.makeText(getApplicationContext(), "Service Iniciado", Toast.LENGTH_LONG).show();
+		if(isInternetActivated()){
+			Toast.makeText(getApplicationContext(), "Internet conectada", Toast.LENGTH_LONG).show();	
+		}
+		Toast.makeText(getApplicationContext(), "Service finalizado", Toast.LENGTH_LONG).show();
+		return super.onStartCommand(intent, flags, startId);
+	}
+
+	private boolean isInternetActivated() {
+		ConnectivityManager connectionManger =  (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetwork = connectionManger.getActiveNetworkInfo();
+		boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+		
+		if(isConnected && isConfiguratedInternet(activeNetwork)){
+			return true;
+		}
+		
+		return false;
+	}
+
+	private boolean isConfiguratedInternet(NetworkInfo activeNetwork) {
+		
+		boolean isConfigured = false;
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean wifiConfigured = sharedPreferences.getBoolean(getResources().getString(R.string.key_wifi_enabled), false);
+		boolean mobileConfigured = sharedPreferences.getBoolean(getResources().getString(R.string.key_wifi_enabled), false);
+		
+		if(wifiConfigured){
+			isConfigured = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+			
+		}else if(mobileConfigured){
+			isConfigured = activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+			
+		}
+		
+		return isConfigured;
+	}
 }

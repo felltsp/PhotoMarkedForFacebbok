@@ -304,6 +304,13 @@ containing a value of this type.
         public static final int download_photo_wifi_network=0x7f07001e;
         public static final int hello_world=0x7f07001b;
         public static final int interval_of_verification=0x7f070024;
+        public static final int key_interval_verification=0x7f070029;
+        public static final int key_mobile_enabled=0x7f070027;
+        public static final int key_notification_me=0x7f070028;
+        /**  keys configuration 
+ keys configuration 
+         */
+        public static final int key_wifi_enabled=0x7f070026;
         public static final int notification_of_downlod=0x7f070023;
         /**  util 
  util 

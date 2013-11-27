@@ -19,4 +19,10 @@
     <!-- util -->
     <string name="photo">foto</string>
     
+    <!-- keys configuration -->
+    <string name="key_wifi_enabled">wifi_enabled</string>
+    <string name="key_mobile_enabled">mobile_enabled</string>
+    <string name="key_notification_me">notification_me</string>
+    <string name="key_interval_verification">interval_verification</string>
+    
 </resources>
