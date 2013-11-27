@@ -16,4 +16,7 @@
     <string name="notification_of_downlod">Notificar-me de novos downloads</string>
     <string name="interval_of_verification">Intervalo de verificação para novas fotos marcadas</string>
     
+    <!-- util -->
+    <string name="photo">foto</string>
+    
 </resources>

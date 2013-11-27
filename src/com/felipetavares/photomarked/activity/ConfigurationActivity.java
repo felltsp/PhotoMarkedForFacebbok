@@ -1,7 +1,11 @@
 package com.felipetavares.photomarked.activity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -22,16 +26,37 @@ import com.facebook.Response;
 import com.facebook.Session;
 import com.felipetavares.photomarked.R;
 import com.felipetavares.photomarked.service.CheckPhotoService;
+import com.felipetavares.photomarked.service.DownloadPhotoIntentService;
+import com.felipetavares.photomarked.vo.PhotoVO;
 
 public class ConfigurationActivity extends Activity {
 	
 	private static String TAG = "PHOTOMARKED";
-	private static Request.Callback requestCallback = new Request.Callback() {
+	private Request.Callback requestCallback = new Request.Callback() {
 		
 		@Override
 		public void onCompleted(Response response) {
-			Log.d(TAG, "Result: " + response.toString());
-			
+			try {
+				
+				JSONArray array = (JSONArray) response.getGraphObject().getInnerJSONObject().get("data");
+				Intent intent = new Intent(ConfigurationActivity.this, DownloadPhotoIntentService.class);
+				
+				PhotoVO photo = new PhotoVO();
+				photo.setPid(array.getJSONObject(0).getString("pid"));
+				photo.setName(array.getJSONObject(0).getString("caption"));
+				photo.setSrcBig(array.getJSONObject(0).getString("src_big"));
+				photo.setSrcSmall(array.getJSONObject(0).getString("src_small"));
+				
+				List<PhotoVO> list = new ArrayList<PhotoVO>();
+				list.add(photo);
+				
+				intent.putExtra("LINK_PHOTOS_AVAILABLE_FOR_DOWNLOAD", (Serializable) list);
+				startService(intent);
+				
+			} catch (JSONException e) {
+				Log.e(TAG, "erro ao fazer o parse do resultado", e);
+				e.printStackTrace();
+			}
 			
 			
 		}
@@ -47,7 +72,7 @@ public class ConfigurationActivity extends Activity {
 		addEventsInButtonSave();
 		addEventsInButtonStop();
 
-		String fqlQuery = "select src_small, src_big, src from photo where pid in (SELECT pid from photo_tag where subject = me())";
+		String fqlQuery = "select pid, caption,  src_small, src_big from photo where pid in (SELECT pid from photo_tag where subject = me())";
 		Bundle params = new Bundle();
 		params.putString("q", fqlQuery);
 		Session session = Session.getActiveSession();
