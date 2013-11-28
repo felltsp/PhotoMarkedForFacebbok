@@ -1,8 +1,6 @@
 package com.felipetavares.photomarked.service;
 
 
-import com.felipetavares.photomarked.R;
-
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +10,8 @@ import android.net.NetworkInfo;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
+
+import com.felipetavares.photomarked.util.PreferencesAplicationKeys;
 
 /**
  * Class with the objective of checking for new tagged pictures available to download.
@@ -41,11 +41,9 @@ public class CheckPhotoService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Toast.makeText(getApplicationContext(), "Service Iniciado", Toast.LENGTH_LONG).show();
 		if(isInternetActivated()){
 			Toast.makeText(getApplicationContext(), "Internet conectada", Toast.LENGTH_LONG).show();	
 		}
-		Toast.makeText(getApplicationContext(), "Service finalizado", Toast.LENGTH_LONG).show();
 		return super.onStartCommand(intent, flags, startId);
 	}
 
@@ -65,8 +63,8 @@ public class CheckPhotoService extends Service {
 		
 		boolean isConfigured = false;
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean wifiConfigured = sharedPreferences.getBoolean(getResources().getString(R.string.key_wifi_enabled), false);
-		boolean mobileConfigured = sharedPreferences.getBoolean(getResources().getString(R.string.key_wifi_enabled), false);
+		boolean wifiConfigured = sharedPreferences.getBoolean(PreferencesAplicationKeys.WIFI_ENABLED.name(), false);
+		boolean mobileConfigured = sharedPreferences.getBoolean(PreferencesAplicationKeys.MOBILE_ENABLED.name(), false);
 		
 		if(wifiConfigured){
 			isConfigured = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
