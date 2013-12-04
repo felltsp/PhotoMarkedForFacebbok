@@ -15,4 +15,7 @@ public class PhotoPersistenceFacade {
 		return new PhotoDao(PhotoPersistenceFacade.context).getArrayAllIdsPhotos();
 	}
 	
+	public long insertIdPhoto(String idPhoto){
+		return new PhotoDao(PhotoPersistenceFacade.context).insertIdPhoto(idPhoto);
+	}
 }

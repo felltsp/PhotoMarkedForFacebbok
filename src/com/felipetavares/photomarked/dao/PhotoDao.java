@@ -39,7 +39,7 @@ public class PhotoDao extends Dao {
 			idsPhotos = list.toArray(idsPhotos);
 		}
 		
-		
+		close();
 		return idsPhotos; 
 	}
 

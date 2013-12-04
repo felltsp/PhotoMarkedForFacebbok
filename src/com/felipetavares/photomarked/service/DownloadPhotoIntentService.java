@@ -16,18 +16,21 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
+import com.felipetavares.photomarked.facade.PhotoPersistenceFacade;
 import com.felipetavares.photomarked.util.ManagerFile;
 import com.felipetavares.photomarked.vo.PhotoVO;
 
 public class DownloadPhotoIntentService extends IntentService {
 
+	private PhotoPersistenceFacade photoFacade;
 	
 	public DownloadPhotoIntentService() {
 		super("DownloadPhotoIntentService");
 	}
+
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		
+		photoFacade = new PhotoPersistenceFacade(getApplicationContext());
 
 		@SuppressWarnings("unchecked")
 		List<PhotoVO> listOfPhotos = (List<PhotoVO>) intent.getSerializableExtra("LINK_PHOTOS_AVAILABLE_FOR_DOWNLOAD");
@@ -37,6 +40,7 @@ public class DownloadPhotoIntentService extends IntentService {
 			try {
 				downloadPhoto(photo);
 				ManagerFile.writePhotoInSDCard(photo);
+				photoFacade.insertIdPhoto(photo.getPid());
 				
 			} catch (Exception e) {
 				Log.d("PHOTOMARKED", "ERRO AO FAZER O DOWNLOAD DA FOTO : "+ photo , e);

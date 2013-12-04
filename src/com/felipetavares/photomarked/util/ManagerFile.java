@@ -6,11 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import android.content.res.Resources;
 import android.os.Environment;
 import android.util.Log;
 
-import com.felipetavares.photomarked.R;
 import com.felipetavares.photomarked.vo.PhotoVO;
 
 public abstract class ManagerFile {
@@ -18,7 +16,7 @@ public abstract class ManagerFile {
 	private static File pathSdCard = Environment.getExternalStorageDirectory().getAbsoluteFile();
 	
 	public static void writePhotosInSDCard(List<PhotoVO> listOfPhotos){
-		File directory = new File(pathSdCard + File.pathSeparator + "PhotoMarked");
+		File directory = new File(pathSdCard + File.separator + "PhotoMarked");
 		directory.mkdir();
 
 		for(PhotoVO photo : listOfPhotos){
@@ -27,7 +25,7 @@ public abstract class ManagerFile {
 	}
 
 	public static void writePhotoInSDCard(PhotoVO photoVO){
-		File directory = new File(pathSdCard + File.pathSeparator + "PhotoMarked");
+		File directory = new File(pathSdCard + File.separator + "PhotoMarked");
 		directory.mkdir();
 		
 		try {
