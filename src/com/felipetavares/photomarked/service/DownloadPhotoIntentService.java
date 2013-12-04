@@ -29,21 +29,22 @@ public class DownloadPhotoIntentService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		
 
+		@SuppressWarnings("unchecked")
 		List<PhotoVO> listOfPhotos = (List<PhotoVO>) intent.getSerializableExtra("LINK_PHOTOS_AVAILABLE_FOR_DOWNLOAD");
 		
 		for(PhotoVO photo : listOfPhotos){
 			
 			try {
-				DownloadPhotoIntentService.downloadPhoto(photo);
+				downloadPhoto(photo);
+				ManagerFile.writePhotoInSDCard(photo);
 				
 			} catch (Exception e) {
 				Log.d("PHOTOMARKED", "ERRO AO FAZER O DOWNLOAD DA FOTO : "+ photo , e);
 			}
 		}
-		ManagerFile.writePhotosInSDCard(listOfPhotos);
 	}
 
-	static private void downloadPhoto(PhotoVO photo) throws IOException {
+	private void downloadPhoto(PhotoVO photo) throws IOException {
 		HttpUriRequest request = new HttpGet(photo.getSrcBig());
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpResponse response = httpClient.execute(request);
