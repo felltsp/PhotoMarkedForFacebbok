@@ -4,22 +4,42 @@
     android:layout_height="match_parent"
     tools:context=".ConfiguracaoActivity" >
 
-    <ListView
-        android:id="@+id/listViewConfigurations"
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/textViewConfigurationWifiOnly"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayoutButtons"
+        android:layout_alignBaseline="@+id/checkConfigurationWifiOnly"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" >
-    </ListView>
+        android:text="@string/download_photo_wifi_network" />
+
+    <CheckBox
+        android:id="@+id/checkConfigurationWifiOnly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
+    <View
+        
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/com_facebook_blue" />
+
+    <TextView
+        android:id="@+id/textViewConfigurationInterval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="@string/interval_of_verification" />
 
     <LinearLayout
         android:id="@+id/linearLayoutButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true" >
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/idBtnSave"

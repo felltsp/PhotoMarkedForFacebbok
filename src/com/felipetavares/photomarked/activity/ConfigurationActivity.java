@@ -30,9 +30,9 @@ public class ConfigurationActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_configuration);
-		List<String> listConfiguration = getListConfiguration();
-		ListView listViewConfiguration = (ListView) findViewById(R.id.listViewConfigurations);
-		listViewConfiguration.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, listConfiguration));
+//		List<String> listConfiguration = getListConfiguration();
+//		ListView listViewConfiguration = (ListView) findViewById(R.id.listViewConfigurations);
+//		listViewConfiguration.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, listConfiguration));
 		addEventsInButtonSave();
 		addEventsInButtonStop();
 	}
@@ -40,8 +40,8 @@ public class ConfigurationActivity extends Activity {
 	private List<String> getListConfiguration(){
 		Resources resource = getResources();
 		List<String> list = new ArrayList<String>();
-		list.add(resource.getString(R.string.download_photo_mobile_network));
 		list.add(resource.getString(R.string.download_photo_wifi_network));
+		list.add(resource.getString(R.string.interval_of_verification));
 		return list;
 	}
 

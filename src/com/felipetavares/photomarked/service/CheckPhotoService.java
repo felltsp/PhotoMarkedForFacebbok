@@ -168,31 +168,20 @@ public class CheckPhotoService extends Service {
 	private boolean isInternetActivated() {
 		ConnectivityManager connectionManger =  (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetwork = connectionManger.getActiveNetworkInfo();
-		boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 		
-		if(isConnected && isConfiguratedInternet(activeNetwork)){
+		boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+		boolean isWifi 		= activeNetwork != null && activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+		
+		if((isConnected && isWifiOnly() && isWifi) || (isConnected && !isWifiOnly())){
 			return true;
 		}
 		
 		return false;
 	}
 
-	private boolean isConfiguratedInternet(NetworkInfo activeNetwork) {
-		
-		boolean isConfigured = false;
+	private boolean isWifiOnly() {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		//TODO passar o valor default para false
-		boolean wifiConfigured = sharedPreferences.getBoolean(PreferencesAplicationKeys.WIFI_ENABLED.name(), true);
-		boolean mobileConfigured = sharedPreferences.getBoolean(PreferencesAplicationKeys.MOBILE_ENABLED.name(), false);
-		
-		if(wifiConfigured){
-			isConfigured = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
-			
-		}else if(mobileConfigured){
-			isConfigured = activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
-			
-		}
-		
-		return isConfigured;
+		boolean wifiConfigured = sharedPreferences.getBoolean(PreferencesAplicationKeys.WIFI_ENABLED.name(), false);
+		return wifiConfigured;
 	}
 }
