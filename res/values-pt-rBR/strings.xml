@@ -8,13 +8,14 @@
     
     <!-- screen configuration -->
     <string name="download_photo_mobile_network">Baixar fotos usando a rede móvel</string>
-    <string name="download_photo_wifi_network">Baixar fotos usando a rede wifi</string>
+    <string name="download_photo_wifi_network">Baixar fotos somente na rede wifi</string>
     <string name="save">Salvar</string>
     <string name="cancel">Cancel</string>
     <string name="start">Iniciar</string>
     <string name="stop">Parar</string>
     <string name="notification_of_downlod">Notificar-me de novos downloads</string>
-    <string name="interval_of_verification">Intervalo de verificação para novas fotos marcadas</string>
+    <string name="interval_of_verification">Intervalo de verificação de novas fotos marcadas</string>
+    <string name="title_dialog_interval_of_verification">Selecione um intervalo</string>
     
     <!-- util -->
     <string name="photo">foto</string>

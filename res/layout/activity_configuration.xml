@@ -4,34 +4,35 @@
     android:layout_height="match_parent"
     tools:context=".ConfiguracaoActivity" >
 
-    <TextView
-        android:id="@+id/textViewConfigurationWifiOnly"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/checkConfigurationWifiOnly"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/download_photo_wifi_network" />
-
-    <CheckBox
-        android:id="@+id/checkConfigurationWifiOnly"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
-
-    <View
-        
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/com_facebook_blue" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayoutButtons" >
 
-    <TextView
-        android:id="@+id/textViewConfigurationInterval"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:text="@string/interval_of_verification" />
+        <CheckedTextView
+            android:id="@+id/idConfigurationWifiOnly"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_margin="4dp"
+            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+            android:checked="false"
+            android:clickable="true"
+            android:gravity="left|center_vertical"
+            android:text="@string/download_photo_wifi_network"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/idConfigurationInterval"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:layout_below="@+id/idConfigurationWifiOnly"
+            android:layout_margin="4dp"
+            android:gravity="left|center_vertical"
+            android:text="@string/interval_of_verification"
+            android:clickable="true"
+            android:textSize="25sp" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearLayoutButtons"

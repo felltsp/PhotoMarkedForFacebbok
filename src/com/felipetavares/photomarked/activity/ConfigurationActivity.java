@@ -1,48 +1,117 @@
 package com.felipetavares.photomarked.activity;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.CheckedTextView;
+import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import com.felipetavares.photomarked.R;
 import com.felipetavares.photomarked.service.CheckPhotoService;
+import com.felipetavares.photomarked.util.PreferencesAplicationKeys;
 
 public class ConfigurationActivity extends Activity {
 	
-	private static String TAG = "PHOTOMARKED";
-	
+	CheckedTextView checkTextWifiOnly 	= null;
+	TextView intervalOfVerification 	= null;
+	SortedMap<Long, String> timeOfInterval	= null;
+	int positionTimeIntervalSelected = 0;
+	AlertDialog dialogIntervalSelected = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_configuration);
-//		List<String> listConfiguration = getListConfiguration();
-//		ListView listViewConfiguration = (ListView) findViewById(R.id.listViewConfigurations);
-//		listViewConfiguration.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_checked, listConfiguration));
+		addEventsInConfigurationWifi();
+		restoreScreenDialog(savedInstanceState);
+		addEventsInConfigurationInterval();
 		addEventsInButtonSave();
 		addEventsInButtonStop();
 	}
 
-	private List<String> getListConfiguration(){
-		Resources resource = getResources();
-		List<String> list = new ArrayList<String>();
-		list.add(resource.getString(R.string.download_photo_wifi_network));
-		list.add(resource.getString(R.string.interval_of_verification));
-		return list;
+	private void restoreScreenDialog(Bundle savedInstanceState) {
+		if(savedInstanceState != null){
+			positionTimeIntervalSelected = savedInstanceState.getInt("position");
+			dialogIntervalSelected = createAlertDialogSelectTimeInterval();
+			dialogIntervalSelected.show();
+		}else{
+			dialogIntervalSelected = createAlertDialogSelectTimeInterval();
+		}
+	}
+
+	private void addEventsInConfigurationWifi() {
+		checkTextWifiOnly = (CheckedTextView) findViewById(R.id.idConfigurationWifiOnly);
+		checkTextWifiOnly.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				checkTextWifiOnly.setChecked(!checkTextWifiOnly.isChecked());
+			}
+		});
+	}
+	
+
+	private void addEventsInConfigurationInterval() {
+		intervalOfVerification = (TextView) findViewById(R.id.idConfigurationInterval);
+		intervalOfVerification.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				dialogIntervalSelected.show();
+			}
+		});
+	}
+
+	private AlertDialog createAlertDialogSelectTimeInterval() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(ConfigurationActivity.this);
+		builder.setTitle(R.string.title_dialog_interval_of_verification);
+		builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+
+		});
+		prepareTimeOfInterval();
+		ListAdapter listChoiceInterval = new ArrayAdapter<String>(ConfigurationActivity.this, android.R.layout.simple_list_item_single_choice, new ArrayList<String>(timeOfInterval.values()));
+		builder.setSingleChoiceItems(listChoiceInterval, positionTimeIntervalSelected, new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface dialog, int position) {
+				positionTimeIntervalSelected = position;
+				dialog.dismiss();
+			}
+
+		});
+		return builder.create();
+	}
+
+	private void prepareTimeOfInterval() {
+		timeOfInterval = new TreeMap<Long, String>();
+		timeOfInterval.put(10L, "10min");
+		timeOfInterval.put(30L, "30min");
+		timeOfInterval.put(60L, "60min");
+		timeOfInterval.put(120L, "02h");
+		timeOfInterval.put(480L, "08h");
+		timeOfInterval.put(1440L, "24h");
 	}
 
 	private void addEventsInButtonSave(){
@@ -51,12 +120,18 @@ public class ConfigurationActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				saveConfigurations();
 				Intent checkPhotoServiceIntent = new Intent(ConfigurationActivity.this, CheckPhotoService.class);
 				startService(checkPhotoServiceIntent);
 			}
 		});
 	}
 	
+	protected void saveConfigurations() {
+		savePreferences(PreferencesAplicationKeys.WIFI_ENABLED.name(), checkTextWifiOnly.isChecked());
+		savePreferences(PreferencesAplicationKeys.INTERVAL_VERIFICATION.name(), (Long)timeOfInterval.keySet().toArray()[positionTimeIntervalSelected]);
+	}
+
 	private void addEventsInButtonStop(){
 		Button btnStop = (Button) findViewById(R.id.idBtnStop);
 		btnStop.setOnClickListener(new View.OnClickListener() {
@@ -88,11 +163,18 @@ public class ConfigurationActivity extends Activity {
 		editor.commit();
 	}
 
-	private void savePreferences(String key, String value) {
+	private void savePreferences(String key, Long value) {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		Editor editor = sharedPreferences.edit();
-		editor.putString(key, value);
+		editor.putLong(key, value);
 		editor.commit();
 	}
-
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putInt("position", positionTimeIntervalSelected);
+		outState.putBoolean("isShow", dialogIntervalSelected.isShowing());
+		super.onSaveInstanceState(outState);
+	}
+	
 }
