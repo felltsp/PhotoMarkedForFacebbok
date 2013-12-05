@@ -12,7 +12,7 @@
         <CheckedTextView
             android:id="@+id/idConfigurationWifiOnly"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_alignParentTop="true"
             android:layout_margin="4dp"
             android:checkMark="?android:attr/listChoiceIndicatorMultiple"
@@ -20,18 +20,45 @@
             android:clickable="true"
             android:gravity="left|center_vertical"
             android:text="@string/download_photo_wifi_network"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/idConfigurationWifiOnly"
+            android:background="@color/com_facebook_blue" />
 
         <TextView
             android:id="@+id/idConfigurationInterval"
             android:layout_width="fill_parent"
-            android:layout_height="70dp"
-            android:layout_below="@+id/idConfigurationWifiOnly"
+            android:layout_height="40dp"
+            android:layout_below="@+id/divider1"
             android:layout_margin="4dp"
+            android:layout_marginBottom="0dp"
+            android:clickable="true"
             android:gravity="left|center_vertical"
             android:text="@string/interval_of_verification"
-            android:clickable="true"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/idConfigurationShowInterval"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idConfigurationInterval"
+            android:ellipsize="marquee"
+            android:layout_marginLeft="4dp"
+            android:text="@string/interval_of_verification_default"
+            android:textColor="#D8000000"
+            android:textSize="12sp" />
+        
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/idConfigurationShowInterval"
+            android:background="@color/com_facebook_blue" />
+        
     </RelativeLayout>
 
     <LinearLayout

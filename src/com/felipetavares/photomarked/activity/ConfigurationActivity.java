@@ -29,31 +29,22 @@ import com.felipetavares.photomarked.util.PreferencesAplicationKeys;
 
 public class ConfigurationActivity extends Activity {
 	
-	CheckedTextView checkTextWifiOnly 	= null;
-	TextView intervalOfVerification 	= null;
+	CheckedTextView checkTextWifiOnly 		= null;
+	TextView intervalOfVerification 		= null;
+	TextView intervalOfVerificationSelected	= null; 
 	SortedMap<Long, String> timeOfInterval	= null;
-	int positionTimeIntervalSelected = 0;
-	AlertDialog dialogIntervalSelected = null;
+	int positionTimeIntervalSelected		= 0;
+	AlertDialog dialogIntervalSelected 		= null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_configuration);
 		addEventsInConfigurationWifi();
-		restoreScreenDialog(savedInstanceState);
+		dialogIntervalSelected = createAlertDialogSelectTimeInterval();
 		addEventsInConfigurationInterval();
 		addEventsInButtonSave();
 		addEventsInButtonStop();
-	}
-
-	private void restoreScreenDialog(Bundle savedInstanceState) {
-		if(savedInstanceState != null){
-			positionTimeIntervalSelected = savedInstanceState.getInt("position");
-			dialogIntervalSelected = createAlertDialogSelectTimeInterval();
-			dialogIntervalSelected.show();
-		}else{
-			dialogIntervalSelected = createAlertDialogSelectTimeInterval();
-		}
 	}
 
 	private void addEventsInConfigurationWifi() {
@@ -69,6 +60,7 @@ public class ConfigurationActivity extends Activity {
 	
 
 	private void addEventsInConfigurationInterval() {
+		intervalOfVerificationSelected = (TextView) findViewById(R.id.idConfigurationShowInterval);
 		intervalOfVerification = (TextView) findViewById(R.id.idConfigurationInterval);
 		intervalOfVerification.setOnClickListener(new OnClickListener() {
 			
@@ -97,6 +89,8 @@ public class ConfigurationActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int position) {
 				positionTimeIntervalSelected = position;
+				long key = (Long)timeOfInterval.keySet().toArray()[positionTimeIntervalSelected];
+				intervalOfVerificationSelected.setText(timeOfInterval.get(key));
 				dialog.dismiss();
 			}
 
@@ -174,7 +168,22 @@ public class ConfigurationActivity extends Activity {
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putInt("position", positionTimeIntervalSelected);
 		outState.putBoolean("isShow", dialogIntervalSelected.isShowing());
+		outState.putCharSequence("intervalSelected", intervalOfVerificationSelected.getText());
 		super.onSaveInstanceState(outState);
 	}
 	
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		if(savedInstanceState != null){
+			positionTimeIntervalSelected = savedInstanceState.getInt("position");
+			intervalOfVerificationSelected.setText(savedInstanceState.getCharSequence("intervalSelected"));
+			dialogIntervalSelected = createAlertDialogSelectTimeInterval();
+			
+			if(savedInstanceState.getBoolean("isShow")){
+				dialogIntervalSelected.show();
+			}
+			
+		}
+		super.onRestoreInstanceState(savedInstanceState);
+	}
 }
