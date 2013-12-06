@@ -28,7 +28,7 @@ public class MainActivity extends FragmentActivity {
 		public void call(Session session, SessionState state, Exception exception) {
 			if(state.equals(SessionState.OPENED)){
 				Intent i = new Intent(MainActivity.this, ConfigurationActivity.class);
-		        startActivity(i);
+		        startActivity(i); 
 			}
 		}
 	};
