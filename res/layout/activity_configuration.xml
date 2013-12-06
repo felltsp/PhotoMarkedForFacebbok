@@ -14,13 +14,15 @@
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_alignParentTop="true"
-            android:layout_margin="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="4dp"
             android:checkMark="?android:attr/listChoiceIndicatorMultiple"
             android:checked="false"
             android:clickable="true"
             android:gravity="left|center_vertical"
             android:text="@string/download_photo_wifi_network"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
 
         <View
             android:id="@+id/divider1"
@@ -34,31 +36,54 @@
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/divider1"
-            android:layout_margin="4dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
             android:clickable="true"
             android:gravity="left|center_vertical"
             android:text="@string/interval_of_verification"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/idConfigurationShowInterval"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/idConfigurationInterval"
-            android:ellipsize="marquee"
+            android:layout_marginBottom="4dp"
             android:layout_marginLeft="4dp"
+            android:ellipsize="marquee"
             android:text="@string/interval_of_verification_default"
             android:textColor="#D8000000"
             android:textSize="12sp" />
-        
+
         <View
             android:id="@+id/divider2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/idConfigurationShowInterval"
             android:background="@color/com_facebook_blue" />
-        
+
+        <TextView
+            android:id="@+id/idConfigurationPath"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/divider2"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:clickable="true"
+            android:gravity="left|center_vertical"
+            android:text="@string/path_download_photos"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/idConfigurationShowPath"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idConfigurationPath"
+            android:layout_marginLeft="4dp"
+            android:ellipsize="marquee"
+            android:text="@string/path_default"
+            android:textColor="#D8000000"
+            android:textSize="12sp" />
     </RelativeLayout>
 
     <LinearLayout
@@ -67,13 +92,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_margin="8dp" >
 
         <Button
-            android:id="@+id/idBtnSave"
+            android:id="@+id/idBtnStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/save" />
+            android:text="@string/start" />
 
         <Button
             android:id="@+id/idBtnStop"

@@ -43,7 +43,7 @@ public class ConfigurationActivity extends Activity {
 		addEventsInConfigurationWifi();
 		dialogIntervalSelected = createAlertDialogSelectTimeInterval();
 		addEventsInConfigurationInterval();
-		addEventsInButtonSave();
+		addEventsInButtonStart();
 		addEventsInButtonStop();
 	}
 
@@ -56,6 +56,8 @@ public class ConfigurationActivity extends Activity {
 				checkTextWifiOnly.setChecked(!checkTextWifiOnly.isChecked());
 			}
 		});
+		
+		checkTextWifiOnly.setChecked(PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PreferencesAplicationKeys.WIFI_ENABLED.name(), false));
 	}
 	
 
@@ -108,8 +110,8 @@ public class ConfigurationActivity extends Activity {
 		timeOfInterval.put(1440L, "24h");
 	}
 
-	private void addEventsInButtonSave(){
-		Button btnSave = (Button) findViewById(R.id.idBtnSave);
+	private void addEventsInButtonStart(){
+		Button btnSave = (Button) findViewById(R.id.idBtnStart);
 		btnSave.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -119,6 +121,10 @@ public class ConfigurationActivity extends Activity {
 				startService(checkPhotoServiceIntent);
 			}
 		});
+		
+		if(isCheckPhotoServiceRunning()){
+			btnSave.setEnabled(false);
+		}
 	}
 	
 	protected void saveConfigurations() {

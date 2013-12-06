@@ -108,7 +108,7 @@ public class CheckPhotoService extends Service {
 					public void run() {
 						if(isInternetActivated()){
 							String[] array = photoFacade.getArrayAllIdsPhotos();
-							checkPhotoAvaliableForDownload(array);
+//							checkPhotoAvaliableForDownload(array);
 						}
 					}
 				});

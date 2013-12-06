@@ -17,6 +17,8 @@
     <string name="interval_of_verification">Interval of verification for new photos marked</string>
     <string name="interval_of_verification_default">10min</string>
     <string name="title_dialog_interval_of_verification">Select one interval</string>
+    <string name="path_download_photos">Folder of photos downloaded</string>
+    <string name="path_default">/Photo Marked</string>
     
     <!-- util -->
     <string name="photo">photo</string>
