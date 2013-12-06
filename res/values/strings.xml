@@ -19,6 +19,7 @@
     <string name="title_dialog_interval_of_verification">Select one interval</string>
     <string name="path_download_photos">Folder of photos downloaded</string>
     <string name="path_default">/Photo Marked</string>
+    <string name="message_start_service">Service started</string>
     
     <!-- util -->
     <string name="photo">photo</string>

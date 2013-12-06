@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.felipetavares.photomarked.R;
 import com.felipetavares.photomarked.service.CheckPhotoService;
@@ -71,6 +72,9 @@ public class ConfigurationActivity extends Activity {
 				dialogIntervalSelected.show();
 			}
 		});
+		
+		Long key = PreferenceManager.getDefaultSharedPreferences(this).getLong(PreferencesAplicationKeys.INTERVAL_VERIFICATION.name(), 10L);
+		intervalOfVerificationSelected.setText(timeOfInterval.get(key));
 	}
 
 	private AlertDialog createAlertDialogSelectTimeInterval() {
@@ -119,6 +123,8 @@ public class ConfigurationActivity extends Activity {
 				saveConfigurations();
 				Intent checkPhotoServiceIntent = new Intent(ConfigurationActivity.this, CheckPhotoService.class);
 				startService(checkPhotoServiceIntent);
+				Toast.makeText(getApplicationContext(), R.string.message_start_service, Toast.LENGTH_SHORT).show();
+				v.setEnabled(false);
 			}
 		});
 		
@@ -140,7 +146,8 @@ public class ConfigurationActivity extends Activity {
 			public void onClick(View v) {
 				if(isCheckPhotoServiceRunning()){
 					Intent checkPhotoServiceIntent = new Intent(ConfigurationActivity.this, CheckPhotoService.class);
-					stopService(checkPhotoServiceIntent);	
+					stopService(checkPhotoServiceIntent);
+					((Button) findViewById(R.id.idBtnStart)).setEnabled(true);
 				}
 			}
 		});

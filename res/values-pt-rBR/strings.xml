@@ -19,6 +19,7 @@
     <string name="title_dialog_interval_of_verification">Selecione um intervalo</string>
     <string name="path_download_photos">Pasta das fotos baixadas</string>
     <string name="path_default">/Photo Marked</string>
+    <string name="message_start_service">Serviço iniciado</string>
     
     <!-- util -->
     <string name="photo">foto</string>

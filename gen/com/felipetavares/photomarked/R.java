@@ -311,13 +311,14 @@ containing a value of this type.
         public static final int hello_world=0x7f07001b;
         public static final int interval_of_verification=0x7f070024;
         public static final int interval_of_verification_default=0x7f070025;
+        public static final int message_start_service=0x7f070029;
         public static final int notification_of_downlod=0x7f070023;
         public static final int path_default=0x7f070028;
         public static final int path_download_photos=0x7f070027;
         /**  util 
  util 
          */
-        public static final int photo=0x7f070029;
+        public static final int photo=0x7f07002a;
         public static final int save=0x7f07001f;
         public static final int start=0x7f070021;
         public static final int stop=0x7f070022;
