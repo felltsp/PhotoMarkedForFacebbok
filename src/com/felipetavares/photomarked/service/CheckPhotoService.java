@@ -37,7 +37,8 @@ import com.felipetavares.photomarked.vo.PhotoVO;
  */
 public class CheckPhotoService extends Service {
 	
-	private Timer timer = new Timer();
+	private Timer timer = null;
+	private TimerTask timerTask = null;
 	private long period_in_minutes = 0;
 	private PhotoPersistenceFacade photoFacade;
 	private Request.Callback requestCallback = new Request.Callback() {
@@ -99,7 +100,7 @@ public class CheckPhotoService extends Service {
 		
 		final Handler handler = new Handler();
 	    timer = new Timer();
-		timer.scheduleAtFixedRate(new TimerTask() {
+	    timerTask = new TimerTask() {
 			@Override
 			public void run() {
 				
@@ -114,7 +115,9 @@ public class CheckPhotoService extends Service {
 				});
 			}
 			
-		}, 0, getPeriodInMillis());
+		};
+		
+		
 		super.onCreate();
 	}
 
@@ -158,7 +161,8 @@ public class CheckPhotoService extends Service {
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		return super.onStartCommand(intent, flags, startId);
+		timer.scheduleAtFixedRate(timerTask, 0, getPeriodInMillis());
+		return Service.START_STICKY;
 	}
 	
 	private long getPeriodInMillis(){

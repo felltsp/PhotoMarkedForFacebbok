@@ -1,18 +1,9 @@
 package com.felipetavares.photomarked.activity;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.util.Base64;
-import android.util.Log;
 
 import com.facebook.Session;
 import com.facebook.SessionState;
@@ -44,22 +35,4 @@ public class MainActivity extends FragmentActivity {
         userSettingsFragment.setSessionStatusCallback(statusCallback);
 	}
 	
-	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		userSettingsFragment.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-	}
-	
-	@Override
-	protected void onStart() {
-		userSettingsFragment.onStart();
-		super.onStart();
-	}
-	
-	@Override
-	protected void onPause() {
-		userSettingsFragment.onPause();
-		super.onPause();
-	}
 }
