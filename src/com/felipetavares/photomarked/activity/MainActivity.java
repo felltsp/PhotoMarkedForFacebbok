@@ -9,7 +9,6 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.widget.UserSettingsFragment;
 import com.felipetavares.photomarked.R;
-import com.felipetavares.photomarked.util.LogManagerUtil;
 
 public class MainActivity extends FragmentActivity {
 	 private UserSettingsFragment userSettingsFragment;
@@ -30,7 +29,6 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		LogManagerUtil.gravarLog(getClass(), "onCreate", "configurando o fragment de login.");
 		FragmentManager fragmentManager = getSupportFragmentManager();
         userSettingsFragment = (UserSettingsFragment) fragmentManager.findFragmentById(R.id.login_fragment);
         userSettingsFragment.setReadPermissions("user_photos","friends_photos");
