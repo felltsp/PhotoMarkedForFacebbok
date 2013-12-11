@@ -27,6 +27,7 @@ import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.felipetavares.photomarked.facade.PhotoPersistenceFacade;
+import com.felipetavares.photomarked.util.LogManagerUtil;
 import com.felipetavares.photomarked.util.PreferencesAplicationKeys;
 import com.felipetavares.photomarked.vo.PhotoVO;
 
@@ -68,7 +69,7 @@ public class CheckPhotoService extends Service {
 			PhotoVO photo = null;
 
 			JSONArray array = (JSONArray) response.getGraphObject().getInnerJSONObject().get("data");
-			
+			LogManagerUtil.gravarLog(getClass(), "getListPhotoVOAvaliableForDownload", "Registros encontrados: " + array.length());
 			for(int index=0 ; array != null && index < array.length() ; index++){
 
 				photo = new PhotoVO();
@@ -124,14 +125,24 @@ public class CheckPhotoService extends Service {
 
 	private void checkPhotoAvaliableForDownload(String[] idPhotosDownloaded){
 		String fqlQuery = getFqlQuery(idPhotosDownloaded);
+		LogManagerUtil.gravarLog(getClass(), "checkPhotoAvaliableForDownload", "query a ser executada" + fqlQuery);
 		
 		Bundle params = new Bundle();
 		params.putString("q", fqlQuery);
 		
 		Session session = Session.getActiveSession();
+		LogManagerUtil.gravarLog(getClass(), "checkPhotoAvaliableForDownload", "permisões carregadas: " + getMensagemListaPermisoes(session.getPermissions()));
 		Request request = new Request(session, "/fql", params, HttpMethod.GET, requestCallback);
 		Request.executeBatchAsync(request);
 		
+	}
+
+	private String getMensagemListaPermisoes(List<String> listPermissions) {
+		String permissions = "";
+		for(String permision : listPermissions){
+			permissions += permision + ", ";
+		}
+		return permissions;
 	}
 
 	private String getFqlQuery(String[] idPhotosDownloaded) {
@@ -155,12 +166,14 @@ public class CheckPhotoService extends Service {
 
 	@Override
 	public void onDestroy() {
+		LogManagerUtil.gravarLog(getClass(), "onDestroy", "terminando o serviço.");
 		timer.cancel();
 		super.onDestroy();
 	}
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		LogManagerUtil.gravarLog(getClass(), "onStartCommand", "iniciando o serviço.");
 		timer.scheduleAtFixedRate(timerTask, 0, getPeriodInMillis());
 		return Service.START_STICKY;
 	}
