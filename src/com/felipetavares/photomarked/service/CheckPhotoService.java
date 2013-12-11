@@ -27,7 +27,6 @@ import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.felipetavares.photomarked.facade.PhotoPersistenceFacade;
-import com.felipetavares.photomarked.util.LogManagerUtil;
 import com.felipetavares.photomarked.util.PreferencesAplicationKeys;
 import com.felipetavares.photomarked.vo.PhotoVO;
 
@@ -70,7 +69,6 @@ public class CheckPhotoService extends Service {
 			PhotoVO photo = null;
 
 			JSONArray array = (JSONArray) response.getGraphObject().getInnerJSONObject().get("data");
-			LogManagerUtil.gravarLog(getClass(), "getListPhotoVOAvaliableForDownload", "Registros encontrados: " + array.length());
 			for(int index=0 ; array != null && index < array.length() ; index++){
 
 				photo = new PhotoVO();
