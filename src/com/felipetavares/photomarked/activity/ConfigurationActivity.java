@@ -24,6 +24,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.Session;
 import com.felipetavares.photomarked.R;
 import com.felipetavares.photomarked.service.CheckPhotoService;
 import com.felipetavares.photomarked.util.PreferencesAplicationKeys;
@@ -122,6 +123,7 @@ public class ConfigurationActivity extends Activity {
 			public void onClick(View v) {
 				saveConfigurations();
 				Intent checkPhotoServiceIntent = new Intent(ConfigurationActivity.this, CheckPhotoService.class);
+				checkPhotoServiceIntent.putExtra("session", Session.getActiveSession());
 				startService(checkPhotoServiceIntent);
 				Toast.makeText(getApplicationContext(), R.string.message_start_service, Toast.LENGTH_SHORT).show();
 				v.setEnabled(false);

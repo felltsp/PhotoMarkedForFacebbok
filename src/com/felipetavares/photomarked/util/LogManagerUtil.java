@@ -19,8 +19,9 @@ public abstract class LogManagerUtil {
 	public static void gravarLog(Class<?> c, String metodo, String mensagem){
 		try {
 			
-			Log.d(TAG, sdf.format(new Date()) + "::" + c.getSimpleName() + "::" + metodo + " > " + mensagem);
-			salverLog(recuperarLog(), mensagem);
+			String mensagemCompleta = sdf.format(new Date()) + "::" + c.getSimpleName() + "::" + metodo + " > " + mensagem;
+			Log.d(TAG, mensagemCompleta);
+			salverLog(recuperarLog(), mensagemCompleta);
 			
 		} catch (IOException e) {
 			Log.d(TAG, "Arquivo não encontrado");

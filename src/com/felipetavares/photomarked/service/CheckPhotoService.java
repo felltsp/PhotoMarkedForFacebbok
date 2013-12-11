@@ -42,6 +42,7 @@ public class CheckPhotoService extends Service {
 	private TimerTask timerTask = null;
 	private long period_in_minutes = 0;
 	private PhotoPersistenceFacade photoFacade;
+	private final Handler handler = new Handler();
 	private Request.Callback requestCallback = new Request.Callback() {
 
 		@Override
@@ -85,6 +86,7 @@ public class CheckPhotoService extends Service {
 		}
 	};
 	
+	
 	public CheckPhotoService() {
 	}
 
@@ -99,8 +101,6 @@ public class CheckPhotoService extends Service {
 		period_in_minutes = sharedPreferences.getLong(PreferencesAplicationKeys.INTERVAL_VERIFICATION.name(), 10);
 		photoFacade = new PhotoPersistenceFacade(getApplicationContext());
 		
-		final Handler handler = new Handler();
-	    timer = new Timer();
 	    timerTask = new TimerTask() {
 			@Override
 			public void run() {
@@ -118,33 +118,26 @@ public class CheckPhotoService extends Service {
 			
 		};
 		
-		
 		super.onCreate();
 	}
 
 
 	private void checkPhotoAvaliableForDownload(String[] idPhotosDownloaded){
 		String fqlQuery = getFqlQuery(idPhotosDownloaded);
-		LogManagerUtil.gravarLog(getClass(), "checkPhotoAvaliableForDownload", "query a ser executada" + fqlQuery);
-		
+
 		Bundle params = new Bundle();
 		params.putString("q", fqlQuery);
 		
 		Session session = Session.getActiveSession();
-		LogManagerUtil.gravarLog(getClass(), "checkPhotoAvaliableForDownload", "permisões carregadas: " + getMensagemListaPermisoes(session.getPermissions()));
+		if(session == null){
+			session = Session.openActiveSessionFromCache(getApplicationContext());
+		}
+
 		Request request = new Request(session, "/fql", params, HttpMethod.GET, requestCallback);
 		Request.executeBatchAsync(request);
-		
-	}
 
-	private String getMensagemListaPermisoes(List<String> listPermissions) {
-		String permissions = "";
-		for(String permision : listPermissions){
-			permissions += permision + ", ";
-		}
-		return permissions;
 	}
-
+	
 	private String getFqlQuery(String[] idPhotosDownloaded) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(" select pid, caption,  src_small, src_big from photo where pid in (SELECT pid from photo_tag where subject = me()) ");
@@ -166,14 +159,17 @@ public class CheckPhotoService extends Service {
 
 	@Override
 	public void onDestroy() {
-		LogManagerUtil.gravarLog(getClass(), "onDestroy", "terminando o serviço.");
 		timer.cancel();
 		super.onDestroy();
 	}
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		LogManagerUtil.gravarLog(getClass(), "onStartCommand", "iniciando o serviço.");
+		
+		if(timer != null)
+			timer.cancel();
+		
+		timer = new Timer();
 		timer.scheduleAtFixedRate(timerTask, 0, getPeriodInMillis());
 		return Service.START_STICKY;
 	}
@@ -195,7 +191,7 @@ public class CheckPhotoService extends Service {
 		
 		return false;
 	}
-
+	
 	private boolean isWifiOnly() {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean wifiConfigured = sharedPreferences.getBoolean(PreferencesAplicationKeys.WIFI_ENABLED.name(), false);
