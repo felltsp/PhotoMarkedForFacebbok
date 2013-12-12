@@ -7,8 +7,8 @@
     <string name="app_id">221907834654550</string>
     
     <!-- screen configuration -->
-    <string name="download_photo_mobile_network">Baixar fotos usando a rede móvel</string>
     <string name="download_photo_wifi_network">Baixar fotos somente na rede wifi</string>
+    <string name="start_on_boot">Iniciar serviço na inicialização do sistema</string>
     <string name="save">Salvar</string>
     <string name="cancel">Cancel</string>
     <string name="start">Iniciar</string>

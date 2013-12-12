@@ -9,17 +9,21 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.widget.UserSettingsFragment;
 import com.felipetavares.photomarked.R;
+import com.felipetavares.photomarked.service.CheckPhotoService;
 
 public class MainActivity extends FragmentActivity {
-	 private UserSettingsFragment userSettingsFragment;
-	 
-	 Session.StatusCallback statusCallback = new Session.StatusCallback() {
-		
+
+	private UserSettingsFragment userSettingsFragment;
+
+	Session.StatusCallback statusCallback = new Session.StatusCallback() {
+
 		@Override
 		public void call(Session session, SessionState state, Exception exception) {
 			if(state.equals(SessionState.OPENED)){
-				Intent i = new Intent(MainActivity.this, ConfigurationActivity.class);
-		        startActivity(i); 
+				openApplicationConfiguration(); 
+			}else if(state.equals(SessionState.CLOSED)){
+				Intent i = new Intent(MainActivity.this, CheckPhotoService.class);
+				stopService(i);
 			}
 		}
 	};
@@ -29,10 +33,25 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		FragmentManager fragmentManager = getSupportFragmentManager();
-        userSettingsFragment = (UserSettingsFragment) fragmentManager.findFragmentById(R.id.login_fragment);
-        userSettingsFragment.setReadPermissions("user_photos","friends_photos");
-        userSettingsFragment.setSessionStatusCallback(statusCallback);
+
+		if(Session.getActiveSession()!= null && Session.getActiveSession().isOpened()){
+
+			openApplicationConfiguration();
+
+		}else{
+
+			FragmentManager fragmentManager = getSupportFragmentManager();
+			userSettingsFragment = (UserSettingsFragment) fragmentManager.findFragmentById(R.id.login_fragment);
+			userSettingsFragment.setReadPermissions("user_photos","friends_photos");
+			userSettingsFragment.setSessionStatusCallback(statusCallback);
+
+		}
+
 	}
-	
+
+	private void openApplicationConfiguration(){
+		Intent i = new Intent(MainActivity.this, ConfigurationActivity.class);
+		startActivity(i);						
+	}
+
 }

@@ -30,12 +30,34 @@
             android:layout_height="1dp"
             android:layout_below="@+id/idConfigurationWifiOnly"
             android:background="@color/com_facebook_blue" />
-
+        
+        <CheckedTextView
+            android:id="@+id/idConfigurationStartOnBoot"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="4dp"
+            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+            android:checked="false"
+            android:clickable="true"
+            android:layout_below="@+id/divider1"
+            android:gravity="left|center_vertical"
+            android:text="@string/start_on_boot"
+            android:textSize="14sp" />
+        
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/idConfigurationStartOnBoot"
+            android:background="@color/com_facebook_blue" />
+        
         <TextView
             android:id="@+id/idConfigurationInterval"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
-            android:layout_below="@+id/divider1"
+            android:layout_below="@+id/divider3"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
             android:clickable="true"

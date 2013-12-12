@@ -31,8 +31,10 @@ import com.felipetavares.photomarked.util.PreferencesAplicationKeys;
 
 public class ConfigurationActivity extends Activity {
 	
-	CheckedTextView checkTextWifiOnly 		= null;
-	TextView intervalOfVerification 		= null;
+	private CheckedTextView checkTextWifiOnly 		= null;
+	private CheckedTextView checkTextStartOnBoot 	= null;
+	private TextView intervalOfVerification 		= null;
+	
 	TextView intervalOfVerificationSelected	= null; 
 	SortedMap<Long, String> timeOfInterval	= null;
 	int positionTimeIntervalSelected		= 0;
@@ -43,10 +45,24 @@ public class ConfigurationActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_configuration);
 		addEventsInConfigurationWifi();
+		addEventsInConfigurationStartOnBoot();
 		dialogIntervalSelected = createAlertDialogSelectTimeInterval();
 		addEventsInConfigurationInterval();
 		addEventsInButtonStart();
 		addEventsInButtonStop();
+	}
+
+	private void addEventsInConfigurationStartOnBoot() {
+		checkTextStartOnBoot = (CheckedTextView) findViewById(R.id.idConfigurationStartOnBoot);
+		checkTextStartOnBoot.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				checkTextStartOnBoot.setChecked(!checkTextStartOnBoot.isChecked());
+			}
+		});
+		
+		checkTextWifiOnly.setChecked(getSharedPreferences(PreferencesAplicationKeys.PREFERENCES.name(), MODE_PRIVATE).getBoolean(PreferencesAplicationKeys.WIFI_ONLY.name(), false));
 	}
 
 	private void addEventsInConfigurationWifi() {
@@ -59,7 +75,7 @@ public class ConfigurationActivity extends Activity {
 			}
 		});
 		
-		checkTextWifiOnly.setChecked(PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PreferencesAplicationKeys.WIFI_ENABLED.name(), false));
+		checkTextWifiOnly.setChecked(getSharedPreferences(PreferencesAplicationKeys.PREFERENCES.name(), MODE_PRIVATE).getBoolean(PreferencesAplicationKeys.START_ON_BOOT.name(), false));
 	}
 	
 
@@ -136,7 +152,8 @@ public class ConfigurationActivity extends Activity {
 	}
 	
 	protected void saveConfigurations() {
-		savePreferences(PreferencesAplicationKeys.WIFI_ENABLED.name(), checkTextWifiOnly.isChecked());
+		savePreferences(PreferencesAplicationKeys.WIFI_ONLY.name(), checkTextWifiOnly.isChecked());
+		savePreferences(PreferencesAplicationKeys.START_ON_BOOT.name(), checkTextStartOnBoot.isChecked());
 		savePreferences(PreferencesAplicationKeys.INTERVAL_VERIFICATION.name(), (Long)timeOfInterval.keySet().toArray()[positionTimeIntervalSelected]);
 	}
 
@@ -166,14 +183,14 @@ public class ConfigurationActivity extends Activity {
 	}
 	
 	private void savePreferences(String key, boolean value) {
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences sharedPreferences = getSharedPreferences(PreferencesAplicationKeys.PREFERENCES.name(), MODE_PRIVATE);
 		Editor editor = sharedPreferences.edit();
 		editor.putBoolean(key, value);
 		editor.commit();
 	}
 
 	private void savePreferences(String key, Long value) {
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences sharedPreferences = getSharedPreferences(PreferencesAplicationKeys.PREFERENCES.name(), MODE_PRIVATE);
 		Editor editor = sharedPreferences.edit();
 		editor.putLong(key, value);
 		editor.commit();

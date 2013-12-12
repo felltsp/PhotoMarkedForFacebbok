@@ -191,8 +191,8 @@ public class CheckPhotoService extends Service {
 	}
 	
 	private boolean isWifiOnly() {
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean wifiConfigured = sharedPreferences.getBoolean(PreferencesAplicationKeys.WIFI_ENABLED.name(), false);
+		SharedPreferences sharedPreferences = getSharedPreferences(PreferencesAplicationKeys.PREFERENCES.name(), MODE_PRIVATE);
+		boolean wifiConfigured = sharedPreferences.getBoolean(PreferencesAplicationKeys.WIFI_ONLY.name(), false);
 		return wifiConfigured;
 	}
 }
