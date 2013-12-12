@@ -62,7 +62,7 @@ public class ConfigurationActivity extends Activity {
 			}
 		});
 		
-		checkTextWifiOnly.setChecked(getSharedPreferences(PreferencesAplicationKeys.PREFERENCES.name(), MODE_PRIVATE).getBoolean(PreferencesAplicationKeys.WIFI_ONLY.name(), false));
+		checkTextStartOnBoot.setChecked(getSharedPreferences(PreferencesAplicationKeys.PREFERENCES.name(), MODE_PRIVATE).getBoolean(PreferencesAplicationKeys.START_ON_BOOT.name(), false));
 	}
 
 	private void addEventsInConfigurationWifi() {
@@ -75,7 +75,7 @@ public class ConfigurationActivity extends Activity {
 			}
 		});
 		
-		checkTextWifiOnly.setChecked(getSharedPreferences(PreferencesAplicationKeys.PREFERENCES.name(), MODE_PRIVATE).getBoolean(PreferencesAplicationKeys.START_ON_BOOT.name(), false));
+		checkTextWifiOnly.setChecked(getSharedPreferences(PreferencesAplicationKeys.PREFERENCES.name(), MODE_PRIVATE).getBoolean(PreferencesAplicationKeys.WIFI_ONLY.name(), false));
 	}
 	
 
